@@ -1,1 +1,12 @@
-#To Implement
+# To Implement
+- [x] login
+- [x] logout
+- [ ] sign up
+- [ ] sign in using gmail
+- [ ] write data for user
+- [ ] read data for user
+- [ ] theme
+- [ ] fonts
+- [ ] screen rotate lock
+- [ ] print pdf report
+- [ ] 
