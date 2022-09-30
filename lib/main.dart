@@ -34,9 +34,8 @@ class MainPage extends StatelessWidget {
             }else {
               return const LoginWidget();
             }
-    }
-          )
-    ;
+          }
+    );
   }
 }
 

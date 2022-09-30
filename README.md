@@ -1,6 +1,8 @@
 # To Implement
 - [x] login
 - [x] logout
+- [x] implement bottom nav bar
+- [x] icon for the app
 - [ ] sign up
 - [ ] sign in using gmail
 - [ ] write data for user
@@ -9,4 +11,3 @@
 - [ ] fonts
 - [ ] screen rotate lock
 - [ ] print pdf report
-- [ ] 
