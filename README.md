@@ -5,9 +5,9 @@
 - [x] icon for the app
 - [ ] sign up
 - [ ] sign in using gmail
-- [ ] write data for user
+- [x] write data for user
 - [ ] read data for user
 - [ ] theme
 - [ ] fonts
-- [ ] screen rotate lock
+- [x] screen rotate lock
 - [ ] print pdf report

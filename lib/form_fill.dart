@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 import 'package:intl/intl.dart';
 
 class FormFill extends StatefulWidget {
@@ -16,14 +17,28 @@ class _FormFillState extends State<FormFill> {
   // var dt = DateTime.now();
   String currentDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
   String currentTime = DateFormat("HH-mm-ss").format(DateTime.now());
+  final user = FirebaseAuth.instance.currentUser!;
+  Future createEntry({required String sys,required String dia,required String sugar,required String date,required String time})async{
+    final docUser = FirebaseFirestore.instance.collection(user.email!.substring(0, user.email!.indexOf('@'))).doc("$date@$time");
+    final json = {
+      'date' : date,
+      'time' : time,
+      'sys' : sys,
+      'dia' : dia,
+      'sugar' : sugar,
+    };
+    await docUser.set(json);
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     // return const Center(child: Text("FormFill"),);
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
+    return Padding(
+      padding: const EdgeInsets.all(25.0),
+      child: ListView(
+        children: [
             SizedBox(height: MediaQuery.of(context).size.height/6,),
             // Container(
             //   child: RichText(
@@ -59,13 +74,14 @@ class _FormFillState extends State<FormFill> {
                       filled: true,
                     ),
                     keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
                   ),
                 ),
                 // SizedBox(width: 35,),
                 SizedBox(
                   width: MediaQuery.of(context).size.width /2.5,
                   child: TextField(
-                    controller: sysController,
+                    controller: diaController,
                     decoration: InputDecoration(
                       // prefixIcon: const ImageIcon(AssetImage('assets/blood-pressure.png'),color: Colors.black38,),
                       labelText: "  Dia",
@@ -74,6 +90,7 @@ class _FormFillState extends State<FormFill> {
                       filled: true,
                     ),
                     keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
                   ),
                 ),
               ],
@@ -92,6 +109,7 @@ class _FormFillState extends State<FormFill> {
                 filled: true,
               ),
               keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.done,
             ),
             const SizedBox(height: 20,),
             ElevatedButton(
@@ -100,11 +118,20 @@ class _FormFillState extends State<FormFill> {
                   setState(() {
                     currentDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
                     currentTime = DateFormat("HH-mm-ss").format(DateTime.now());
+                    createEntry(
+                      sys: sysController.text,
+                      dia: diaController.text,
+                      sugar: sugarController.text,
+                      date: currentDate,
+                      time: currentTime
+                    );
+                    sysController.clear();
+                    diaController.clear();
+                    sugarController.clear();
                   });
                 },
             ),
           ],
-        ),
       ),
     );
   }
