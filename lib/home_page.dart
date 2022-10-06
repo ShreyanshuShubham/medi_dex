@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'form_fill.dart';
 import 'form_read.dart';
+import 'config.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,7 +22,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: isDark?Colors.red:Colors.blue,
+        leading: IconButton(
+            icon: Icon(isDark?Icons.dark_mode:Icons.light_mode),
+            onPressed: (){setState(() => isDark = !isDark ); },
+        ),
         title: Text(user.email!.substring(0, user.email!.indexOf('@'))),
+        centerTitle: true,
         actions: [
           IconButton(onPressed: ()=> FirebaseAuth.instance.signOut(), icon: const Icon(Icons.logout)),
         ],
@@ -36,8 +43,8 @@ class _HomeState extends State<Home> {
         unselectedIconTheme: const IconThemeData(size: 20,),
         type: BottomNavigationBarType.shifting,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.list),label: 'Data',backgroundColor: Colors.blue),
-          BottomNavigationBarItem(icon: Icon(Icons.format_align_justify),label: 'Post',backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.edit),label: 'Upload',backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.remove_red_eye),label: 'View',backgroundColor: Colors.blue),
         ],
         onTap: (index){
           setState(() {

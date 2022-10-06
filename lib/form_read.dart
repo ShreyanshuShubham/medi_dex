@@ -46,26 +46,9 @@ class _FormReadState extends State<FormRead> {
   );
   @override
   //=========this is above method for loading every time
-  // Widget build(BuildContext context) {
-  //   return StreamBuilder<List<User>>(
-  //       stream: readEntry(),
-  //       builder: (context,snapshot){
-  //         if(snapshot.hasData){
-  //           final users = snapshot.data!;
-  //           return ListView(
-  //             children: users.map(buildUser).toList(),
-  //           );
-  //         }else{
-  //           return const Center(child: CircularProgressIndicator(),);
-  //         }
-  //       }
-  //   );
-  // }
-
-  //=========this is above method for not loading every time
   Widget build(BuildContext context) {
-    return FutureBuilder<List<User>>(
-        future: readEntry().first,
+    return StreamBuilder<List<User>>(
+        stream: readEntry(),
         builder: (context,snapshot){
           if(snapshot.hasData){
             final users = snapshot.data!;
@@ -78,4 +61,22 @@ class _FormReadState extends State<FormRead> {
         }
     );
   }
+
+  //=========this is above method for not loading every time
+  // Widget build(BuildContext context) {
+  //   return FutureBuilder<List<User>>(
+  //       future: readEntry().first,
+  //       builder: (context,snapshot){
+  //         if(snapshot.hasData){
+  //           final users = snapshot.data!;
+  //           return ListView(
+  //             reverse: true,
+  //             children: users.map(buildUser).toList(),
+  //           );
+  //         }else{
+  //           return const Center(child: CircularProgressIndicator(),);
+  //         }
+  //       }
+  //   );
+  // }
 }
