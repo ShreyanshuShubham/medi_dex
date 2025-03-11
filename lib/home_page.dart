@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'form_fill.dart';
 import 'form_read.dart';
+import 'settings.dart';
 import 'config.dart';
 
 class Home extends StatefulWidget {
@@ -17,21 +18,15 @@ class _HomeState extends State<Home> {
   final tabs = [
     const FormFill(),
     const FormRead(),
+    const SettingPage()
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: isDark?Colors.red:Colors.blue,
-        leading: IconButton(
-            icon: Icon(isDark?Icons.dark_mode:Icons.light_mode),
-            onPressed: (){setState(() => isDark = !isDark ); },
-        ),
         title: Text(user.email!.substring(0, user.email!.indexOf('@'))),
         centerTitle: true,
-        actions: [
-          IconButton(onPressed: ()=> FirebaseAuth.instance.signOut(), icon: const Icon(Icons.logout)),
-        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -45,6 +40,7 @@ class _HomeState extends State<Home> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.edit),label: 'Upload',backgroundColor: Colors.blue),
           BottomNavigationBarItem(icon: Icon(Icons.remove_red_eye),label: 'View',backgroundColor: Colors.blue),
+          BottomNavigationBarItem(icon: Icon(Icons.settings),label: 'Settings',backgroundColor: Colors.blue),
         ],
         onTap: (index){
           setState(() {
